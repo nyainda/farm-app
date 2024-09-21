@@ -24,6 +24,7 @@
     "dependencies": {
         "@heroicons/vue": "^2.1.5",
         "prettier": "^3.2.5",
+        "@vercel/postgres": "^0.8.0",
         "three": "^0.168.0"
     }
 }

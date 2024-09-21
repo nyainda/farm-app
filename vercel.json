@@ -1,33 +1,18 @@
 {
   "version": 2,
-  "framework": null,
   "functions": {
     "api/index.php": { "runtime": "vercel-php@0.6.0" }
   },
-  "builds": [
-    {
-      "src": "public/index.php",
-      "use": "@vercel/php",
-      "config": {
-        "composer": true
-      }
-    },
-    {
-      "src": "resources/js/app.js",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api/index.php"
-    }
+      {
+        "src": "/(.*)",
+        "dest": "/api/index.php"
+      }
   ],
   "env": {
     "APP_ENV": "production",
     "APP_DEBUG": "true",
-    "APP_URL": "https://your.url.from.vercel.app",
-    "APP_KEY": "base64:Ja8ZsIPeQe5NWPuRDyClda9pZNGyzrHPcT27IorLBdQ=",
+    "APP_URL": "https://agro-website-mu.vercel.app",
 
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",
