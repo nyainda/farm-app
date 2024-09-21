@@ -21,7 +21,7 @@ type RouteName = KnownRouteName | (string & {});
 /**
  * Information about a single route parameter.
  */
-type ParameterInfo = { name: string; required: boolean; binding?: string };
+type ParameterInfo = { name: string; binding?: string };
 
 /**
  * A primitive route parameter value, as it would appear in a URL.
@@ -43,18 +43,14 @@ type ParameterValue = RawParameterValue | DefaultRoutable;
  * A parseable route parameter, either plain or nested inside an object under its binding key.
  */
 type Routable<I extends ParameterInfo> = I extends { binding: string }
-    ? ({ [K in I['binding']]: RawParameterValue } & Record<keyof any, unknown>) | RawParameterValue
+    ? { [K in I['binding']]: RawParameterValue } | RawParameterValue
     : ParameterValue;
 
 // Uncomment to test:
-// type A = Routable<{ name: 'foo', required: true, binding: 'bar' }>;
+// type A = Routable<{ name: 'foo', binding: 'bar' }>;
 // = RawParameterValue | { bar: RawParameterValue }
-// type B = Routable<{ name: 'foo', required: true, }>;
+// type B = Routable<{ name: 'foo' }>;
 // = RawParameterValue | DefaultRoutable
-
-// Utility types for KnownRouteParamsObject
-type RequiredParams<I extends readonly ParameterInfo[]> = Extract<I[number], { required: true }>;
-type OptionalParams<I extends readonly ParameterInfo[]> = Extract<I[number], { required: false }>;
 
 /**
  * An object containing a special '_query' key to target the query string of a URL.
@@ -68,19 +64,13 @@ type GenericRouteParamsObject = Record<keyof any, unknown> & HasQueryParam;
 /**
  * An object of parameters for a specific named route.
  */
+// TODO: The keys here could be non-optional (or more detailed) if we can determine which params are required/not.
 type KnownRouteParamsObject<I extends readonly ParameterInfo[]> = {
-    [T in RequiredParams<I> as T['name']]: Routable<T>;
-} & {
-    [T in OptionalParams<I> as T['name']]?: Routable<T>;
+    [T in I[number] as T['name']]?: Routable<T>;
 } & GenericRouteParamsObject;
 // `readonly` allows TypeScript to determine the actual values of all the
 // parameter names inside the array, instead of just seeing `string`.
 // See https://github.com/tighten/ziggy/pull/664#discussion_r1329978447.
-
-// Uncomment to test:
-// type A = KnownRouteParamsObject<[{ name: 'foo'; required: true }, { name: 'bar'; required: false }]>;
-// = { foo: ... } & { bar?: ... }
-
 /**
  * An object of route parameters.
  */
@@ -108,7 +98,7 @@ type KnownRouteParamsArray<I extends readonly ParameterInfo[]> = [
 // See https://github.com/tighten/ziggy/pull/664#discussion_r1330002370.
 
 // Uncomment to test:
-// type B = KnownRouteParamsArray<[{ name: 'post'; required: true; binding: 'uuid' }]>;
+// type B = KnownRouteParamsArray<[{ name: 'post', binding: 'uuid' }]>;
 // = [RawParameterValue | { uuid: RawParameterValue }, ...unknown[]]
 
 /**
@@ -121,7 +111,7 @@ type RouteParamsArray<N extends RouteName> = N extends KnownRouteName
 /**
  * All possible parameter argument shapes for a route.
  */
-type RouteParams<N extends RouteName> = RouteParamsObject<N> | RouteParamsArray<N>;
+type RouteParams<N extends RouteName> = ParameterValue | RouteParamsObject<N> | RouteParamsArray<N>;
 
 /**
  * A route.
@@ -156,10 +146,8 @@ interface Config {
  */
 interface Router {
     current(): RouteName | undefined;
-    current<T extends RouteName>(name: T, params?: ParameterValue | RouteParams<T>): boolean;
-    get params(): Record<string, string>;
-    get routeParams(): Record<string, string>;
-    get queryParams(): Record<string, string>;
+    current<T extends RouteName>(name: T, params?: RouteParams<T>): boolean;
+    get params(): Record<string, unknown>;
     has<T extends RouteName>(name: T): boolean;
 }
 
@@ -167,36 +155,18 @@ interface Router {
  * Ziggy's route helper.
  */
 // Called with no arguments - returns a Router instance
-export function route(): Router;
+export default function route(): Router;
 // Called with a route name and optional additional arguments - returns a URL string
-export function route<T extends RouteName>(
+export default function route<T extends RouteName>(
     name: T,
     params?: RouteParams<T> | undefined,
     absolute?: boolean,
     config?: Config,
 ): string;
-export function route<T extends RouteName>(
-    name: T,
-    params?: ParameterValue | undefined,
-    absolute?: boolean,
-    config?: Config,
-): string;
 // Called with configuration arguments only - returns a configured Router instance
-export function route(
+export default function route(
     name: undefined,
     params: undefined,
     absolute?: boolean,
     config?: Config,
 ): Router;
-
-/**
- * Ziggy's Vue plugin.
- */
-export const ZiggyVue: {
-    install(app: any, options?: Config): void;
-};
-
-/**
- * Ziggy's React hook.
- */
-export function useRoute(defaultConfig?: Config): typeof route;
