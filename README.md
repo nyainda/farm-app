@@ -17,14 +17,6 @@ This repository contains a starter template for setting up a web application usi
 
 ## Setup Instructions
 
-1. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/giauphan/laravel-vue-tailwind
-   ```
-   ## Navigate into the project directory
-   ```
-    cd laravel-vue-tailwind
    ```
 ## Install PHP dependencies
 ```
