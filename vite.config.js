@@ -21,21 +21,12 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(__dirname, 'resources/js'),
-            'ziggy': 'ziggy-js',
-            'ziggy-js': 'ziggy-js',
+            'ziggy': resolve(__dirname, 'vendor/tightenco/ziggy/dist'),
         },
     },
     build: {
-        rollupOptions: {
-            output: {
-                manualChunks: {
-                    vue: ['vue'],
-                },
-            },
-            external: ['ziggy-vue'],  // Added to avoid resolving this during build
-        },
         commonjsOptions: {
-            include: [/node_modules/],
+            include: [/node_modules/, /vendor/],
         },
     },
     server: {
