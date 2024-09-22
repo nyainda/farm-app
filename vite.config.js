@@ -4,7 +4,6 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 
 export default defineConfig({
-    base: process.env.NODE_ENV === 'production' ? 'https://farm-app-coc4-q4iwm0t59-nyaindas-projects.vercel.app/' : '/',
     plugins: [
         laravel({
             input: 'resources/js/app.js',
@@ -22,8 +21,8 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(__dirname, 'resources/js'),
-            'ziggy': resolve(__dirname, 'vendor/tightenco/ziggy/dist'),
-            'ziggy-vue': resolve(__dirname, 'vendor/tightenco/ziggy/dist/vue.es.js'),
+            'ziggy': 'ziggy-js',
+            'ziggy-js': 'ziggy-js',
         },
     },
     build: {
@@ -35,7 +34,7 @@ export default defineConfig({
             },
         },
         commonjsOptions: {
-            include: [/node_modules/, /vendor/],
+            include: [/node_modules/],
         },
     },
     server: {
