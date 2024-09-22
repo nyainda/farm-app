@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path'; // Import path for resolving paths
+import { resolve } from 'path';
 
 export default defineConfig({
     plugins: [
@@ -20,20 +20,26 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            // Resolve @ to resources/js
             '@': resolve(__dirname, 'resources/js'),
-
-            // Ensure Ziggy is resolved correctly
-            'ziggy-js': resolve(__dirname, 'node_modules/ziggy-js'),
+            'ziggy': resolve(__dirname, 'vendor/tightenco/ziggy/dist'),
+            'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy/dist/vue.m'),
         },
     },
     build: {
         rollupOptions: {
             output: {
                 manualChunks: {
-                    vue: ['vue'], // Split Vue into its own chunk for optimization
+                    vue: ['vue'],
                 },
             },
+        },
+        commonjsOptions: {
+            include: [/node_modules/],
+        },
+    },
+    server: {
+        hmr: {
+            host: 'localhost',
         },
     },
 });

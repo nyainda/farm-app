@@ -91,6 +91,6 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
+    // @tailwindcss/line-clamp is now included by default, so it has been removed
   ],
 }

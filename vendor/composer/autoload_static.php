@@ -7712,6 +7712,8 @@ class ComposerStaticInit26306d98fe371684e77fac62845f74af
         'Spatie\\Color\\Hsb' => __DIR__ . '/..' . '/spatie/color/src/Hsb.php',
         'Spatie\\Color\\Hsl' => __DIR__ . '/..' . '/spatie/color/src/Hsl.php',
         'Spatie\\Color\\Hsla' => __DIR__ . '/..' . '/spatie/color/src/Hsla.php',
+        'Spatie\\Color\\Named' => __DIR__ . '/..' . '/spatie/color/src/Named.php',
+        'Spatie\\Color\\Names' => __DIR__ . '/..' . '/spatie/color/src/Names.php',
         'Spatie\\Color\\Rgb' => __DIR__ . '/..' . '/spatie/color/src/Rgb.php',
         'Spatie\\Color\\Rgba' => __DIR__ . '/..' . '/spatie/color/src/Rgba.php',
         'Spatie\\Color\\Validate' => __DIR__ . '/..' . '/spatie/color/src/Validate.php',

@@ -6990,6 +6990,8 @@ return array(
     'Spatie\\Color\\Hsb' => $vendorDir . '/spatie/color/src/Hsb.php',
     'Spatie\\Color\\Hsl' => $vendorDir . '/spatie/color/src/Hsl.php',
     'Spatie\\Color\\Hsla' => $vendorDir . '/spatie/color/src/Hsla.php',
+    'Spatie\\Color\\Named' => $vendorDir . '/spatie/color/src/Named.php',
+    'Spatie\\Color\\Names' => $vendorDir . '/spatie/color/src/Names.php',
     'Spatie\\Color\\Rgb' => $vendorDir . '/spatie/color/src/Rgb.php',
     'Spatie\\Color\\Rgba' => $vendorDir . '/spatie/color/src/Rgba.php',
     'Spatie\\Color\\Validate' => $vendorDir . '/spatie/color/src/Validate.php',
