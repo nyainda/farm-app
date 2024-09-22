@@ -32,6 +32,7 @@ export default defineConfig({
                     vue: ['vue'],
                 },
             },
+            external: ['ziggy-vue'],  // Added to avoid resolving this during build
         },
         commonjsOptions: {
             include: [/node_modules/],
