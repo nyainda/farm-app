@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
 
 export default defineConfig({
+    base: process.env.NODE_ENV === 'production' ? 'https://farm-app-coc4-q4iwm0t59-nyaindas-projects.vercel.app/' : '/',
     plugins: [
         laravel({
             input: 'resources/js/app.js',
