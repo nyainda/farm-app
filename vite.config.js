@@ -22,7 +22,7 @@ export default defineConfig({
         alias: {
             '@': resolve(__dirname, 'resources/js'),
             'ziggy': resolve(__dirname, 'vendor/tightenco/ziggy/dist'),
-            'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy/dist/vue.m'),
+            'ziggy-vue': resolve(__dirname, 'vendor/tightenco/ziggy/dist/vue.es.js'),
         },
     },
     build: {
@@ -34,7 +34,7 @@ export default defineConfig({
             },
         },
         commonjsOptions: {
-            include: [/node_modules/],
+            include: [/node_modules/, /vendor/],
         },
     },
     server: {

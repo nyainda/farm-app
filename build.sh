@@ -1,16 +1,18 @@
 #!/bin/bash
 
-# Install Composer dependencies
+# Install PHP dependencies
 composer install --no-dev --optimize-autoloader
 
-# Run any PHP-specific build steps here
-# For example:
-# php artisan config:cache
-# php artisan route:cache
+# Generate Ziggy routes
+php artisan ziggy:generate
 
 # Install Node.js dependencies
-npm install
+npm ci
 
-# Run any Node.js build steps here
-# For example:
-# npm run build
+# Build assets
+npm run build
+
+# Run any additional Laravel commands
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
